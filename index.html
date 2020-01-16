@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Performance Dashboard - Admin Support</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+  
+  
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<script>
+document.write('<style>body { visibility: hidden; } </style>');
+document.write('<style>#loader { visibility: visible; } </style>');
+document.write('<style>#ldtext { visibility: visible; } </style>');
+</script>
+  
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+	
+	.bgimg {
+    background-image: url('bg.jpg');
+	background-repeat: no-repeat;
+    
+}
+
+  </style>
+  
+  <style>
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+
+.load-text {
+  position: absolute;
+  left: 47%;
+  top: 65%;
+  text-align: left;
+  font: 16pt "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: lighten(#6767fa, 75%);
+}
+</style>
+  
+</head>
+<body onload="myFunction()">
+
+<div id="loader"></div>
+<div id="ldtext" class="load-text">
+Loading...
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      
+	  
+	  <a class="navbar-brand" rel="home" href="#" title="Performance Dashboard - Admin Support">
+	  
+		<div class ="w3-row" style="margin-top:0px">
+		
+		<div class="w3-col m10">
+		
+		<img class="w3-white w3-round" style="max-width:150px;"
+             src="5.png">
+		
+		</div>
+		
+		
+		</div>
+         
+    </a>
+	
+	
+	
+    </div>
+	<ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><img class="w3-white w3-round" style="max-width:150px;margin-top:-10px"
+             src="2.png"></a></li>
+      </ul>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      
+      
+    </div>
+  </div>
+</nav>
+
+
+<div class="jumbotron">
+  <div class="container text-center">
+  
+		
+  
+
+  <span class="w3-xxxlarge">Performance Dashboard</span><br>
+  <span class="w3-large">Admin Support</span>
+  
+  
+  </div>
+</div>
+
+<ul class="nav nav-pills w3-margin-left">
+  <li class="active"><a data-toggle="tab" href="#Summary">Summary</a></li>
+  <li><a data-toggle="tab" href="#Performance">Performance</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="Summary" class="tab-pane fade in active">
+  
+  
+
+  
+  
+
+ <div class="container col-sm-offset-2" style="margin-top:3%">
+ <div class="row">
+ 
+ 
+  
+
+<div class="col-sm-2" style="margin-left:5%">
+	<label>TASK</label>
+	<select class="form-control" id="task">
+  <option value="" >All</option>
+  <option value="ITINERARY CHANGES">ITINERARY CHANGES</option>
+  <option value="HOTEL CHANGES">HOTEL CHANGES</option>
+  <option value="PAYMENTS">PAYMENTS</option>
+  <option value="DIRECT SALES SUPPORT INBOX">DIRECT SALES SUPPORT INBOX</option>
+  <option value="INDIRECT SALES SUPPORT INBOX">INDIRECT SALES SUPPORT INBOX</option>
+  <option value="BROCHURE REQUEST">BROCHURE REQUEST</option>
+  <option value="INCOMPLETES/PAX HEIGHT">INCOMPLETES/PAX HEIGHT</option>
+  <option value="TRIP CODE CHASERS">TRIP CODE CHASERS</option>
+  <option value="QANTAS EMAILS">QANTAS EMAILS</option>
+  <option value="INCA">INCA</option>
+  <option value="KWE REPORT">KWE REPORT</option>
+  <option value="COMPONENT LEVEL">COMPONENT LEVEL</option>
+  <option value="TRAINING/ADMIN/QC/MEETING">INCA</option>
+  
+  
+</select>
+
+ </div>
+ 
+ 
+ <div class="col-sm-2">
+	<label>MONTH</label>
+	<select class="form-control" id="month">
+  <option value="" >All</option>
+  <option value="JANUARY">JANUARY</option>
+  <option value="FEBRUARY">FEBRUARY</option>
+  <option value="MARCH">MARCH</option>
+  <option value="APRIL">APRIL</option>
+  <option value="MAY">MAY</option>
+  <option value="JUNE">JUNE</option>
+  <option value="JULY">JULY</option>
+  <option value="AUGUST">AUGUST</option>
+  <option value="SEPTEMBER">SEPTEMBER</option>
+  <option value="OCTOBER">OCTOBER</option>
+  <option value="NOVEMBER">NOVEMBER</option>
+  <option value="DECEMBER">DECEMBER</option>
+</select>
+
+ </div>
+ 
+ <div class="col-sm-2">
+	<label>YEAR</label>
+	<select class="form-control" id="year">
+  <option value="" >All</option>
+  <option value="2020">2020</option>
+  <option value="2021">2021</option>
+  <option value="2022">2022</option>
+  <option value="2023">2023</option>
+  <option value="2024">2024</option>
+  <option value="2025">2025</option>
+  <option value="2026">2026</option>
+</select>
+
+ </div>
+ 
+ <div class="col-sm-2">
+	<label>MEMBER</label>
+	<select class="form-control" id="member">
+  <option value="" >All</option>
+  <option value="RANGIKA">RANGIKA</option>
+  <option value="HAKEEM">HAKEEM</option>
+  <option value="STEPHI">STEPHI</option>
+  <option value="UNESHKA">UNESHKA</option>
+  <option value="FIYAZA">FIYAZA</option>
+  <option value="JASON">JASON</option>
+  <option value="SHANOJ">SHANOJ</option>
+</select>
+
+ </div>
+  
+  
+</div>
+
+</div>
+
+
+<div class="container" style="margin-top:3%">    
+  <div class="row">
+	
+	<div class="col-sm-3">
+      <div class="w3-deep-purple w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 1<br><br><span id="cW1"></span></div>
+	  <div class="w3-deep-purple w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 2<br><br><span id="cW2"></span></div>
+    </div>
+  
+    <div class="col-sm-6 w3-border w3-round-xlarge">
+      <div id="volume_pie_core"></div>
+    </div>
+	
+	<div class="col-sm-3">
+      <div class="w3-deep-purple w3-card w3-large w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 3<br><br><span id="cW3"></span></div>
+	   <div class="w3-deep-purple w3-card w3-large w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 4<br><br><span id="cW4"></span></div>
+    </div>
+	
+  
+  </div>
+</div>
+
+  
+
+<div class="container-fluid text-center" style="margin-top:3%">  
+<div class="w3-row-padding">
+  <div class="w3-border w3-round-xlarge pull-left w3-padding" style="width:48%">
+    <div id="volume"></div>
+  </div>
+  <div class="w3-border w3-round-xlarge pull-right w3-padding" style="width:48%">
+    <div id="hours"></div>
+  </div>
+</div>
+</div>
+
+
+<div class="container-fluid text-center" style="margin-top:3%">  
+<div class="w3-row-padding">
+  <div class="w3-border w3-round-xlarge pull-left w3-padding" style="width:48%">
+    <div id="real"></div>
+  </div>
+  <div class="w3-border w3-round-xlarge pull-right w3-padding" style="width:48%">
+    <div id="irph"></div>
+  </div>
+</div>
+</div>
+
+
+    
+  </div>
+  <div id="Performance" class="tab-pane fade">
+  
+  
+  <div class="container col-sm-offset-3" style="margin-top:3%">
+ <div class="row">
+ 
+ 
+  
+
+<div class="col-sm-2" style="margin-left:5%">
+	<label>MEMBER</label>
+	<select class="form-control" id="member_per">
+  <option value="" >All</option>
+  <option value="RANGIKA">RANGIKA</option>
+  <option value="HAKEEM">HAKEEM</option>
+  <option value="STEPHI">STEPHI</option>
+  <option value="UNESHKA">UNESHKA</option>
+  <option value="FIYAZA">FIYAZA</option>
+  <option value="JASON">JASON</option>
+  <option value="SHANOJ">SHANOJ</option>
+</select>
+
+ </div>
+ 
+ 
+ <div class="col-sm-2" >
+	<label>MONTH</label>
+	<select class="form-control" id="month_per">
+  <option value="" >All</option>
+  <option value="JANUARY">JANUARY</option>
+  <option value="FEBRUARY">FEBRUARY</option>
+  <option value="MARCH">MARCH</option>
+  <option value="APRIL">APRIL</option>
+  <option value="MAY">MAY</option>
+  <option value="JUNE">JUNE</option>
+  <option value="JULY">JULY</option>
+  <option value="AUGUST">AUGUST</option>
+  <option value="SEPTEMBER">SEPTEMBER</option>
+  <option value="OCTOBER">OCTOBER</option>
+  <option value="NOVEMBER">NOVEMBER</option>
+  <option value="DECEMBER">DECEMBER</option>
+</select>
+
+ </div>
+ 
+ <div class="col-sm-2" >
+	<label>YEAR</label>
+	<select class="form-control" id="year_per">
+  <option value="" >All</option>
+  <option value="2020">2020</option>
+  <option value="2021">2021</option>
+  <option value="2022">2022</option>
+  <option value="2023">2023</option>
+  <option value="2024">2024</option>
+  <option value="2025">2025</option>
+  <option value="2026">2026</option>
+</select>
+
+ </div>
+ 
+
+  
+  
+</div>
+
+<div class="container col-sm-offset-3" style="margin-top:3%;margin-left:4%">    
+  <div class="row">
+	
+	<div class="col-sm-3">
+      <div class="w3-purple w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 1<br><br><span id="PcW1"></span></div>
+	  <div class="w3-purple w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 2<br><br><span id="PcW2"></span></div>
+    </div>
+  
+	
+	<div class="col-sm-3">
+      <div class="w3-purple w3-card w3-large w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 3<br><br><span id="PcW3"></span></div>
+	   <div class="w3-purple w3-card w3-large w3-card w3-large w3-padding w3-margin w3-large w3-center w3-round w3-border w3-hover-border-blue">Volume - Week 4<br><br><span id="PcW4"></span></div>
+    </div>
+	
+  
+  </div>
+</div>
+
+</div>
+
+
+
+
+
+  
+
+<div class="container-fluid text-center" style="margin-top:3%">  
+<div class="w3-row-padding">
+  <div class="w3-border w3-round-xlarge pull-left w3-padding" style="width:48%">
+    <div id="volume_bar"></div>
+  </div>
+  <div class="w3-border w3-round-xlarge pull-right w3-padding" style="width:48%">
+    <div id="volume_pie"></div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="container-fluid text-center" style="margin-top:3%">  
+<div class="w3-row-padding">
+  <div class="w3-border w3-round-xlarge pull-left w3-padding" style="width:48%">
+    <div id="productivity_pie"></div>
+  </div>
+  <div class="w3-border w3-round-xlarge pull-right w3-padding" style="width:48%">
+    <div id="productivity_bar"></div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="container-fluid text-center" style="margin-top:3%">  
+<div class="w3-row-padding">
+  <div class="w3-border w3-round-xlarge pull-left w3-padding" style="width:48%">
+    <div id="daily_productivity_bar"></div>
+  </div>
+  <div class="w3-border w3-round-xlarge pull-right w3-padding" style="width:48%">
+    <div id="daily_productivity_pie"></div>
+  </div>
+</div>
+</div>
+
+
+
+
+<div class="container-fluid text-center" style="margin-top:3%">  
+<div class="w3-row-padding">
+  <div class="w3-border w3-round-xlarge pull-left w3-padding" style="width:48%">
+    <div id="feedback_bar"></div>
+  </div>
+  <div class="w3-border w3-round-xlarge pull-right w3-padding" style="width:48%">
+    <div id="feedback_pie"></div>
+  </div>
+</div>
+</div>
+   
+  </div>
+</div>
+  
+ <script src="jquery.csv.min.js"></script>
+ <script src="linq.min.js"></script>
+<script src="funtions.js"></script>
+
+<script src="funtions_other.js"></script>
+
+
+
+<script>
+
+
+var taskSelected = "";
+var memberSelected = "";
+var monthSelected = "";
+var yearSelected = "";
+
+var spreadsheetUrl = 'https://spreadsheets.google.com/feeds/cells/1MX4HmF9VfsVqiy5Teed5WMW1IlPtKeRncLvF6khiHUM/1/public/values?alt=json-in-script&callback=doData';
+
+var spreadsheetUrlPerformance = 'https://spreadsheets.google.com/feeds/cells/1MX4HmF9VfsVqiy5Teed5WMW1IlPtKeRncLvF6khiHUM/2/public/values?alt=json-in-script&callback=doDataPer';
+
+
+
+
+buildCharts();
+//getAllOther();
+buildChartsPer();
+
+
+function myFunction() {
+    myVar = setTimeout(showPage, 2000);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  $('#loader').remove();
+  document.getElementById("ldtext").style.display = "none";
+  $('#ldtext').remove();
+  jQuery("body").css("visibility","visible");
+    jQuery("body").css("display","none");
+    jQuery("body").show();
+  
+	
+}
+
+
+</script>
+
+
+
+<footer class="container-fluid text-center " style="margin-top:8%">
+  <p><b> Concept by &copy; R N Balasuriya - Team Lead/Admin Support</b><p>
+</footer>
+
+</body>
+</html>
