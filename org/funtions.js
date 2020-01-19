@@ -1091,7 +1091,8 @@ var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
         }
     },
     tooltip: {
-        valueSuffix: ' '
+        valueSuffix: ' ',
+		shared: true
     },
     plotOptions: {
         bar: {
@@ -1120,7 +1121,8 @@ Highcharts.chart('volume_pie', {
         text: 'Volume Based Analysis'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+		shared: true
     },
 	credits: {
         enabled: false
@@ -1176,7 +1178,8 @@ Highcharts.chart('volume_pie', {
         }
     },
     tooltip: {
-        valueSuffix: ' '
+        valueSuffix: ' ',
+		shared: true
     },
     plotOptions: {
         bar: {
@@ -1205,7 +1208,8 @@ Highcharts.chart('productivity_pie', {
         text: 'Productivity Based Analysis'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+		shared: true
     },
 	credits: {
         enabled: false
@@ -1261,7 +1265,8 @@ Highcharts.chart('productivity_pie', {
         }
     },
     tooltip: {
-        valueSuffix: ' '
+        valueSuffix: ' ',
+		shared: true
     },
     plotOptions: {
         bar: {
@@ -1290,7 +1295,8 @@ Highcharts.chart('daily_productivity_pie', {
         text: 'Daily Productivity Based Analysis'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+		shared: true
     },
 	credits: {
         enabled: false
@@ -1346,7 +1352,8 @@ Highcharts.chart('daily_productivity_pie', {
         }
     },
     tooltip: {
-        valueSuffix: ' '
+        valueSuffix: ' ',
+		shared: true
     },
     plotOptions: {
         bar: {
@@ -1375,7 +1382,8 @@ Highcharts.chart('feedback_pie', {
         text: 'Feedback Based Analysis'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+		shared: true
     },
     accessibility: {
         point: {
@@ -1596,7 +1604,8 @@ var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
         text: 'Product Wise Volume'
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+		shared: true
     },
 	credits: {
         enabled: false
@@ -1651,7 +1660,8 @@ var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
             }
         },
         tooltip: {
-            valueSuffix: ' '
+            valueSuffix: ' ',
+			shared: true
         },
         plotOptions: {
             bar: {
@@ -1726,6 +1736,10 @@ var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
             title: {
                 text: 'Total'
             }
+        },
+		tooltip: {
+            valueSuffix: ' ',
+			shared: true
         },
 
         xAxis: {
