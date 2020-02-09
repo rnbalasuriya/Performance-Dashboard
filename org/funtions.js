@@ -1142,7 +1142,7 @@ function handleResultsPerMonth(spreadsheetData) {
                 
                     userData = userData + parseFloat(spreadsheetArray[i][1]);
                     
-					perBox += '<p>'+ userData.toFixed(4) +' %</p>';
+					perBox += '<p>'+ userData.toFixed(2) +' %</p>';
 
             }
 
