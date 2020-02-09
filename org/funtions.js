@@ -67,6 +67,18 @@ $.ajax({
     
 }
 
+
+function buildChartsPerMonth() {
+
+$.ajax({
+    url: spreadsheetUrlMonthlyPerformance,
+    jsonp: 'doDataPerMonth',
+    dataType: 'jsonp'
+});
+    
+}
+
+
 $('#member').change(function () {
     var optionSelected = $(this).find("option:selected");
 	memberSelected = optionSelected.val();
@@ -102,6 +114,7 @@ $('#member').change(function () {
     var optionSelected = $(this).find("option:selected");
 	memberSelected = optionSelected.val();
     buildChartsPer();
+	buildChartsPerMonth();
 	 
  });
  
@@ -111,6 +124,7 @@ $('#member').change(function () {
     var optionSelected = $(this).find("option:selected");
 	monthSelected = optionSelected.val();
     buildChartsPer();
+	buildChartsPerMonth();
 	 
  });
  
@@ -119,6 +133,7 @@ $('#member').change(function () {
     var optionSelected = $(this).find("option:selected");
 	yearSelected = optionSelected.val();
     buildChartsPer();
+	buildChartsPerMonth();
 	 
  });
 
@@ -200,6 +215,46 @@ function doDataPer(data) {
     }
 
     handleResultsPer(results);
+}
+
+
+function doDataPerMonth(data) {
+	
+    var results = [];
+    var entries = data.feed.entry;
+    var previousRow = 0;
+
+    for (var i = 0; i < entries.length; i++) {
+        var latestRow = results[results.length - 1];
+
+
+        var cell = entries[i];
+
+
+        var text = cell.content.$t;
+
+        var row = cell.gs$cell.row;
+
+
+        if (row > previousRow) {
+
+            var newRow = [];
+
+
+            newRow.push(text);
+
+            results.push(newRow);
+
+
+            previousRow++;
+        } else {
+
+            latestRow.push(text);
+        }
+
+    }
+
+    handleResultsPerMonth(results);
 }
 
 
@@ -847,7 +902,10 @@ coreDPrW4 = 0;
 		corePrW3 = corePrW3 + week3Hours;
 		corePrW4 = corePrW4 + week4Hours;
 		
+		
+	
 		corePr.push(prTemp);
+		
 
 		
 		coreFdW1 = coreFdW1 + week1Real;
@@ -900,8 +958,217 @@ coreDPrW4 = 0;
 }
 
 
-function getChartsPer(name) {
 
+
+function handleResultsPerMonth(spreadsheetData) {
+	
+	categories = [];
+
+
+	var spreadsheetArray = [];
+	
+	
+	var uniqueNames = [];
+	
+	var spreadsheetArrayTemp = [];
+	
+	for (i = 0; i < spreadsheetData.length; i++) {
+		var temp = {
+			
+			"NAME":spreadsheetData[i][0],
+			"VAL":spreadsheetData[i][1],
+			"MONTH":spreadsheetData[i][2],
+			"YEAR":spreadsheetData[i][3]
+			
+		
+		};
+        
+		
+		spreadsheetArrayTemp.push(temp);
+
+    }
+	
+	var agrObj;
+	
+	
+	
+	if(monthSelected!=="" && yearSelected!=="" && memberSelected!==""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						.Where("$.MONTH==='"+monthSelected+"'")
+						.Where("$.YEAR==='"+yearSelected+"'")
+						.Where("$.NAME==='"+memberSelected+"'")
+						.ToArray();
+	}
+	
+	else if(monthSelected!=="" && yearSelected!=="" && memberSelected!==""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						
+						.Where("$.MONTH==='"+monthSelected+"'")
+						.Where("$.YEAR==='"+yearSelected+"'")
+						.Where("$.NAME==='"+memberSelected+"'")
+						.ToArray();
+	}
+	else if(monthSelected!=="" && yearSelected!=="" && memberSelected===""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						
+						.Where("$.MONTH==='"+monthSelected+"'")
+						.Where("$.YEAR==='"+yearSelected+"'")
+						
+						.ToArray();
+	}
+	else if(monthSelected!=="" && yearSelected==="" && memberSelected!==""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						
+						.Where("$.MONTH==='"+monthSelected+"'")
+						
+						.Where("$.NAME==='"+memberSelected+"'")
+						.ToArray();
+	}
+	else if(monthSelected!=="" && yearSelected==="" && memberSelected===""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						.Where("$.MONTH==='"+monthSelected+"'")
+						.ToArray();
+	}
+	
+	else if(monthSelected==="" && yearSelected!=="" && memberSelected!==""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						.Where("$.YEAR==='"+yearSelected+"'")
+						.Where("$.NAME==='"+memberSelected+"'")
+						.ToArray();
+	}
+	else if(monthSelected==="" && yearSelected!=="" && memberSelected===""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						.Where("$.YEAR==='"+yearSelected+"'")
+						
+						.ToArray();
+	}
+	else if(monthSelected==="" && yearSelected==="" && memberSelected!==""){
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						.Where("$.NAME==='"+memberSelected+"'")
+						.ToArray();
+	}
+	else if(monthSelected==="" && yearSelected==="" && memberSelected===""){
+		
+		
+		var curDate = new Date();
+		var month = new Array();
+		month[0] = "January";
+		month[1] = "February";
+		month[2] = "March";
+		month[3] = "April";
+		month[4] = "May";
+		month[5] = "June";
+		month[6] = "July";
+		month[7] = "August";
+		month[8] = "September";
+		month[9] = "October";
+		month[10] = "November";
+		month[11] = "December";
+		
+		console.log(month[curDate.getMonth()].toUpperCase());
+		console.log(curDate.getFullYear());
+		
+		agrObj = Enumerable.From(spreadsheetArrayTemp)
+						.Where("$.MONTH==='"+month[curDate.getMonth()].toUpperCase()+"'")
+						.Where("$.YEAR==='"+curDate.getFullYear()+"'")
+						.ToArray();
+		
+	}
+	
+	console.log(agrObj);
+				
+	
+
+	for (i = 0; i < agrObj.length; i++) {
+		
+		temNext=[];
+		temNext.push(agrObj[i]["NAME"]);
+		temNext.push(parseFloat(agrObj[i]["VAL"]));
+		temNext.push(agrObj[i]["MONTH"]);
+		temNext.push(agrObj[i]["YEAR"]);
+		
+		
+		spreadsheetArray.push(temNext);
+	}	
+	
+	console.log(spreadsheetArray);
+
+    for (i = 0; i < spreadsheetData.length; i++) {
+        uniqueNames.push(spreadsheetData[i][0]);
+
+    }
+
+    $.each(uniqueNames, function(i, el) {
+        if ($.inArray(el, categories) === -1) {
+            categories.push(el);
+
+        }
+    });
+	
+	
+	var perBox = '';
+	
+
+    for (j = 0; j < categories.length; j++) {
+		
+		var userData = 0;
+		
+		perBox += '<div class="w3-col w3-container" style="width:16%">'+
+			  
+								  '<div class="w3-card-2 w3-center w3-round-xlarge">'+
+
+								'<header class="w3-container w3-blue">'+
+								  '<h3>'+categories[j]+'</h3>'+
+								'</header>';
+								
+								perBox += '<div class="w3-container w3-padding" style="height:50px">';
+
+        for (i = 0; i < spreadsheetArray.length; i++) {
+			
+			console.log(categories[j]);
+			
+			
+
+            if (categories[j] === spreadsheetArray[i][0]) {
+
+                
+                    userData = userData + parseFloat(spreadsheetArray[i][1]);
+                    
+					perBox += '<p>'+ userData.toFixed(4) +' %</p>';
+
+            }
+
+			
+
+        }
+		
+		perBox += '</div>';
+		
+		perBox += '</div>'+
+								  
+				'</div>';
+		
+
+
+    }
+	
+	$('#perBox').html(perBox);
+ 
+	
+}
+
+
+function getChartsPer(name) {
+	
+	
    
     var dataArrV = [{
         name: 'Week 1',

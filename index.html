@@ -113,7 +113,7 @@ document.write('<style>#ldtext { visibility: visible; } </style>');
 </style>
   
 </head>
-<body onload="myFunction()">
+<body onload="myFunction()" style="margin-left:0%">
 
 <div id="loader"></div>
 <div id="ldtext" class="load-text">
@@ -408,7 +408,15 @@ Loading...
 </div>
 
 
+<div class="container-fluid text-center" style="margin-top:3%;margin-left:5%">  
 
+<div class="container">
+
+<div id="perBox"></div>
+
+</div>
+
+</div>
 
 
   
@@ -488,11 +496,16 @@ var spreadsheetUrl = 'https://spreadsheets.google.com/feeds/cells/1MX4HmF9VfsVqi
 var spreadsheetUrlPerformance = 'https://spreadsheets.google.com/feeds/cells/1MX4HmF9VfsVqiy5Teed5WMW1IlPtKeRncLvF6khiHUM/2/public/values?alt=json-in-script&callback=doDataPer';
 
 
+var spreadsheetUrlMonthlyPerformance = 'https://spreadsheets.google.com/feeds/cells/1MX4HmF9VfsVqiy5Teed5WMW1IlPtKeRncLvF6khiHUM/3/public/values?alt=json-in-script&callback=doDataPerMonth';
+
+
 
 
 buildCharts();
 //getAllOther();
 buildChartsPer();
+
+buildChartsPerMonth();
 
 
 function myFunction() {
